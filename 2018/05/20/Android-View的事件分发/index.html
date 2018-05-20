@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Android,源码,View," />
 
 
 
@@ -88,16 +88,20 @@
 
 
 
-<meta name="description" content="负阴抱阳，知行合一！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Gillben Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
+<meta name="keywords" content="Android,源码,View">
+<meta property="og:type" content="article">
+<meta property="og:title" content="View的事件分发">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/Android-View的事件分发/index.html">
 <meta property="og:site_name" content="Gillben Blog">
-<meta property="og:description" content="负阴抱阳，知行合一！">
+<meta property="og:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-05-20T00:39:51.888Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gillben Blog">
-<meta name="twitter:description" content="负阴抱阳，知行合一！">
+<meta name="twitter:title" content="View的事件分发">
+<meta name="twitter:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -127,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/20/Android-View的事件分发/"/>
 
 
 
 
 
-  <title>Gillben Blog</title>
+  <title>View的事件分发 | Gillben Blog</title>
   
 
 
@@ -152,8 +156,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/Gillben"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
@@ -248,9 +251,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -280,9 +283,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/20/Android-View的事件分发/" itemprop="url">View的事件分发</a></h1>
+          <h1 class="post-title" itemprop="name headline">View的事件分发</h1>
         
 
         <div class="post-meta">
@@ -354,9 +355,7 @@
       
 
       
-        
-          
-            <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始的。</p>
+        <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始的。</p>
 <p>在处理View的事件分发时，View和ViewGroup(继承自View)稍有差异。</p>
 <blockquote>
 <ul>
@@ -380,8 +379,6 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">public boolean onTouchEvent(MotionEvent event) &#123;</span><br><span class="line">        final float x = event.getX();</span><br><span class="line">        final float y = event.getY();</span><br><span class="line">        final int viewFlags = mViewFlags;</span><br><span class="line">        final int action = event.getAction();</span><br><span class="line">        </span><br><span class="line">        //计算View是否可点击</span><br><span class="line">        final boolean clickable = ((viewFlags &amp; CLICKABLE) == CLICKABLE</span><br><span class="line">                || (viewFlags &amp; LONG_CLICKABLE) == LONG_CLICKABLE)</span><br><span class="line">                || (viewFlags &amp; CONTEXT_CLICKABLE) == CONTEXT_CLICKABLE;</span><br><span class="line">        </span><br><span class="line">        //这里View被禁用，调用了setEnabled(false)或android:enabled=false</span><br><span class="line">        //返回其点击状态，View默认是不可点击的</span><br><span class="line">        //可以通过setClickable()或者android:clickable设置点击状态</span><br><span class="line">        if ((viewFlags &amp; ENABLED_MASK) == DISABLED) &#123;</span><br><span class="line">            if (action == MotionEvent.ACTION_UP &amp;&amp; (mPrivateFlags &amp; PFLAG_PRESSED) != 0) &#123;</span><br><span class="line">                setPressed(false);</span><br><span class="line">            &#125;</span><br><span class="line">            mPrivateFlags3 &amp;= ~PFLAG3_FINGER_DOWN;        </span><br><span class="line">            return clickable;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //委托事件给其它View，mTouchDelegate默认为null</span><br><span class="line">        if (mTouchDelegate != null) &#123;</span><br><span class="line">            if (mTouchDelegate.onTouchEvent(event)) &#123;</span><br><span class="line">                return true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //判断View的点击状态，设置焦点。后续执行onClick()、onLongClick()</span><br><span class="line">        if (clickable || (viewFlags &amp; TOOLTIP) == TOOLTIP) &#123;</span><br><span class="line">            switch (action) &#123;</span><br><span class="line">                case MotionEvent.ACTION_UP:</span><br><span class="line">                    mPrivateFlags3 &amp;= ~PFLAG3_FINGER_DOWN;</span><br><span class="line">                    if ((viewFlags &amp; TOOLTIP) == TOOLTIP) &#123;</span><br><span class="line">                        handleTooltipUp();</span><br><span class="line">                    &#125;</span><br><span class="line">                    if (!clickable) &#123;</span><br><span class="line">                        removeTapCallback();</span><br><span class="line">                        removeLongPressCallback();</span><br><span class="line">                        mInContextButtonPress = false;</span><br><span class="line">                        mHasPerformedLongPress = false;</span><br><span class="line">                        mIgnoreNextUpEvent = false;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line">                    boolean prepressed = (mPrivateFlags &amp; PFLAG_PREPRESSED) != 0;</span><br><span class="line">                    if ((mPrivateFlags &amp; PFLAG_PRESSED) != 0 || prepressed) &#123;</span><br><span class="line">                        // take focus if we don&apos;t have it already and we should in</span><br><span class="line">                        // touch mode.</span><br><span class="line">                        boolean focusTaken = false;</span><br><span class="line">                        if (isFocusable() &amp;&amp; isFocusableInTouchMode() &amp;&amp; !isFocused()) &#123;</span><br><span class="line">                            focusTaken = requestFocus();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if (prepressed) &#123;</span><br><span class="line">                            // The button is being released before we actually</span><br><span class="line">                            // showed it as pressed.  Make it show the pressed</span><br><span class="line">                            // state now (before scheduling the click) to ensure</span><br><span class="line">                            // the user sees it.</span><br><span class="line">                            setPressed(true, x, y);</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if (!mHasPerformedLongPress &amp;&amp; !mIgnoreNextUpEvent) &#123;</span><br><span class="line">                            // This is a tap, so remove the longpress check</span><br><span class="line">                            removeLongPressCallback();</span><br><span class="line"></span><br><span class="line">                            // Only perform take click actions if we were in the pressed state</span><br><span class="line">                            if (!focusTaken) &#123;</span><br><span class="line">                                // Use a Runnable and post this rather than calling</span><br><span class="line">                                // performClick directly. This lets other visual state</span><br><span class="line">                                // of the view update before click actions start.</span><br><span class="line">                                if (mPerformClick == null) &#123;</span><br><span class="line">                                    mPerformClick = new PerformClick();</span><br><span class="line">                                &#125;</span><br><span class="line">                                if (!post(mPerformClick)) &#123;</span><br><span class="line">                                    performClick();</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if (mUnsetPressedState == null) &#123;</span><br><span class="line">                            mUnsetPressedState = new UnsetPressedState();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        if (prepressed) &#123;</span><br><span class="line">                            postDelayed(mUnsetPressedState,</span><br><span class="line">                                    ViewConfiguration.getPressedStateDuration());</span><br><span class="line">                        &#125; else if (!post(mUnsetPressedState)) &#123;</span><br><span class="line">                            // If the post failed, unpress right now</span><br><span class="line">                            mUnsetPressedState.run();</span><br><span class="line">                        &#125;</span><br><span class="line"></span><br><span class="line">                        removeTapCallback();</span><br><span class="line">                    &#125;</span><br><span class="line">                    mIgnoreNextUpEvent = false;</span><br><span class="line">                    break;</span><br><span class="line"></span><br><span class="line">                case MotionEvent.ACTION_DOWN:</span><br><span class="line">                    if (event.getSource() == InputDevice.SOURCE_TOUCHSCREEN) &#123;</span><br><span class="line">                        mPrivateFlags3 |= PFLAG3_FINGER_DOWN;</span><br><span class="line">                    &#125;</span><br><span class="line">                    mHasPerformedLongPress = false;</span><br><span class="line"></span><br><span class="line">                    if (!clickable) &#123;</span><br><span class="line">                        checkForLongClick(0, x, y);</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    if (performButtonActionOnTouchDown(event)) &#123;</span><br><span class="line">                        break;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // Walk up the hierarchy to determine if we&apos;re inside a scrolling container.</span><br><span class="line">                    boolean isInScrollingContainer = isInScrollingContainer();</span><br><span class="line"></span><br><span class="line">                    // For views inside a scrolling container, delay the pressed feedback for</span><br><span class="line">                    // a short period in case this is a scroll.</span><br><span class="line">                    if (isInScrollingContainer) &#123;</span><br><span class="line">                        mPrivateFlags |= PFLAG_PREPRESSED;</span><br><span class="line">                        if (mPendingCheckForTap == null) &#123;</span><br><span class="line">                            mPendingCheckForTap = new CheckForTap();</span><br><span class="line">                        &#125;</span><br><span class="line">                        mPendingCheckForTap.x = event.getX();</span><br><span class="line">                        mPendingCheckForTap.y = event.getY();</span><br><span class="line">                        postDelayed(mPendingCheckForTap, ViewConfiguration.getTapTimeout());</span><br><span class="line">                    &#125; else &#123;</span><br><span class="line">                        // Not inside a scrolling container, so show the feedback right away</span><br><span class="line">                        setPressed(true, x, y);</span><br><span class="line">                        checkForLongClick(0, x, y);</span><br><span class="line">                    &#125;</span><br><span class="line">                    break;</span><br><span class="line"></span><br><span class="line">                case MotionEvent.ACTION_CANCEL:</span><br><span class="line">                    if (clickable) &#123;</span><br><span class="line">                        setPressed(false);</span><br><span class="line">                    &#125;</span><br><span class="line">                    removeTapCallback();</span><br><span class="line">                    removeLongPressCallback();</span><br><span class="line">                    mInContextButtonPress = false;</span><br><span class="line">                    mHasPerformedLongPress = false;</span><br><span class="line">                    mIgnoreNextUpEvent = false;</span><br><span class="line">                    mPrivateFlags3 &amp;= ~PFLAG3_FINGER_DOWN;</span><br><span class="line">                    break;</span><br><span class="line"></span><br><span class="line">                case MotionEvent.ACTION_MOVE:</span><br><span class="line">                    if (clickable) &#123;</span><br><span class="line">                        drawableHotspotChanged(x, y);</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    // Be lenient about moving outside of buttons</span><br><span class="line">                    if (!pointInView(x, y, mTouchSlop)) &#123;</span><br><span class="line">                        // Outside button</span><br><span class="line">                        // Remove any future long press/tap checks</span><br><span class="line">                        removeTapCallback();</span><br><span class="line">                        removeLongPressCallback();</span><br><span class="line">                        if ((mPrivateFlags &amp; PFLAG_PRESSED) != 0) &#123;</span><br><span class="line">                            setPressed(false);</span><br><span class="line">                        &#125;</span><br><span class="line">                        mPrivateFlags3 &amp;= ~PFLAG3_FINGER_DOWN;</span><br><span class="line">                    &#125;</span><br><span class="line">                    break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>关于View的事件分发大概流程到这里就结束了。<br>Activity &gt;  ViewGroup(可包含多个ViewGroup) &gt; View 。<br>最后通过一张图的形式整理下上面的思路：<br><img src="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="View的事件分发.png"></p>
 
-          
-        
       
     </div>
     
@@ -389,6 +386,12 @@
     
 
     <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
         
     </div>
 
@@ -402,148 +405,40 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/15/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gillben">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526526193607&di=50a61fe1503353f2c8489cd29615de59&imgtype=0&src=http%3A%2F%2Fwww.ghost64.com%2Fqqtupian%2FzixunImg%2Flocal%2F2016%2F11%2F25%2F14800683529096.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gillben Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/15/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-15T21:54:18+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           
-            
+            <a href="/tags/源码/" rel="tag"><i class="fa fa-tag"></i> 源码</a>
           
-
+            <a href="/tags/View/" rel="tag"><i class="fa fa-tag"></i> View</a>
           
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-        
-    </div>
-
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/15/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -553,10 +448,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -564,6 +460,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -584,8 +484,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -684,6 +593,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、DecorView-dispatchTouchEvent"><span class="nav-number">1.</span> <span class="nav-text">1、DecorView # dispatchTouchEvent()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、Activity-dispatchTouchEvent"><span class="nav-number">2.</span> <span class="nav-text">2、Activity # dispatchTouchEvent()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、PhoneWindow-superDispatchTouchEvent"><span class="nav-number">3.</span> <span class="nav-text">3、PhoneWindow # superDispatchTouchEvent()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5、View-dispatchTouchEvent-，省略了部分代码"><span class="nav-number">4.</span> <span class="nav-text">5、View # dispatchTouchEvent()，省略了部分代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -836,6 +761,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
