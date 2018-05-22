@@ -263,6 +263,161 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Gillben">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526526193607&di=50a61fe1503353f2c8489cd29615de59&imgtype=0&src=http%3A%2F%2Fwww.ghost64.com%2Fqqtupian%2FzixunImg%2Flocal%2F2016%2F11%2F25%2F14800683529096.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Gillben Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" itemprop="url">OkHttp3 源码解析执行流程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T22:26:06+08:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OkHttp3/" itemprop="url" rel="index">
+                    <span itemprop="name">OkHttp3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+        
+    </div>
+
+
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -363,8 +518,7 @@ OkHttp3 源码解析执行流程
 OkHttp3 源码解析 连接池的复用
 
 
-
-前面一篇文章【OkHttp3 执行流程】里面分析了OkHttp3的请求过程。今天的文章将对OkHttp3的连接池的复用进行深一步的分析，通过对连接池的管理，复用连接，减少了频繁的网络请求导致性
+本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机
           ...
           <!--noindex-->
           <div class="post-button text-center">
@@ -530,161 +684,6 @@ OkHttp3 源码解析 连接池的复用
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-        
-    </div>
-
-
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Gillben">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526526193607&di=50a61fe1503353f2c8489cd29615de59&imgtype=0&src=http%3A%2F%2Fwww.ghost64.com%2Fqqtupian%2FzixunImg%2Flocal%2F2016%2F11%2F25%2F14800683529096.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Gillben Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" itemprop="url">OkHttp3 源码解析执行流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T22:26:06+08:00">
-                2018-05-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/OkHttp3/" itemprop="url" rel="index">
-                    <span itemprop="name">OkHttp3</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          
-OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1361,7 +1360,7 @@ OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中�
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共16.9k字</span>
+  <span class="post-count">博客全站共16.8k字</span>
 </div>
 
         
