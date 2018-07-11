@@ -6,7 +6,7 @@
   <title>OkHttp3 源码解析执行流程 | Keep On Going</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    <meta name="keywords" content="MinHow,MinHow's Blog" />
+    <meta name="keywords" content="GillBen,GillBen's Blog" />
   
   <meta name="description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：   OkHttp请求网络的简单示例123456789101112">
 <meta name="keywords" content="OkHttp3,开源框架">
@@ -46,7 +46,7 @@
         <div id="header-menu" class="header-menu-pos animated">
             <div class="header-menu-container">
                 <a href="/" class="left">
-                    <span class="site-title">MinHow&#39;s Blog</span>
+                    <span class="site-title">GillBen&#39;s Blog</span>
                 </a>
                 <nav id="header-menu-nav" class="right">
                     
@@ -81,14 +81,14 @@
                 <div id="header-title">
                     
                     <h2>
-                        MinHow&#39;s Blog
+                        GillBen&#39;s Blog
                     </h2>
                     
                 </div>
                 <div id="header-description">
                     
                     <h3>
-                        一个专注 WEB 开发的技术博客
+                        Keep on Going
                     </h3>
                     
                 </div>
@@ -96,7 +96,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="MinHow" target="_blank" href="//minhow.com">
+                        <a title="GillBen" target="_blank" href="//gillben.cn">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/wongminho">
@@ -220,37 +220,6 @@
       
         
             
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;">赏</a>
-</div>
-
-<div id="reward" class="post-modal reward-lay">
-    <a class="close" href="javascript:;" id="reward-close">×</a>
-    <span class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        请我吃糖~
-        <i class="icon icon-quote-right"></i>
-    </span>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
-        </div>
-        <div class="reward-select">
-            
-            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
-                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
-            </label>
-            
-            
-            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
-                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
-            </label>
-            
-        </div>
-    </div>
-</div>
-
 
         
     </div>
@@ -387,7 +356,7 @@
       animate: true,
       isHome: false,
       share: true,
-      reward: 1
+      reward: 0
   }
 </script>
 <div class="sidebar">
@@ -472,10 +441,6 @@
 <script src="/js/search.js"></script>
 <script src="/js/main.js"></script>
 
-
-  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
-  <div id="particles"></div>
-  <script src="/js/particles.js"></script>
 
 
 

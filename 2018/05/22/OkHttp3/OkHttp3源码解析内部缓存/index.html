@@ -6,7 +6,7 @@
   <title>OkHttp3 源码解析内部缓存 | Keep On Going</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-    <meta name="keywords" content="MinHow,MinHow's Blog" />
+    <meta name="keywords" content="GillBen,GillBen's Blog" />
   
   <meta name="description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析 连接池的复用   如果有了解过OkHttp的执行流程，可以知道，在拦截器链中有一个缓存拦截器CacheInterceptor，里面决定了是由缓存中获取数据还是通过网络获取。笔者也以这个为入口，展开对OkHttp的缓存分析 CacheInterceptor # intercept12345678910111213">
 <meta name="keywords" content="OkHttp3,开源框架">
@@ -44,7 +44,7 @@
         <div id="header-menu" class="header-menu-pos animated">
             <div class="header-menu-container">
                 <a href="/" class="left">
-                    <span class="site-title">MinHow&#39;s Blog</span>
+                    <span class="site-title">GillBen&#39;s Blog</span>
                 </a>
                 <nav id="header-menu-nav" class="right">
                     
@@ -79,14 +79,14 @@
                 <div id="header-title">
                     
                     <h2>
-                        MinHow&#39;s Blog
+                        GillBen&#39;s Blog
                     </h2>
                     
                 </div>
                 <div id="header-description">
                     
                     <h3>
-                        一个专注 WEB 开发的技术博客
+                        Keep on Going
                     </h3>
                     
                 </div>
@@ -94,7 +94,7 @@
             <nav class="header-nav">
                 <div class="social">
                     
-                        <a title="MinHow" target="_blank" href="//minhow.com">
+                        <a title="GillBen" target="_blank" href="//gillben.cn">
                             <i class="fa fa-home fa-2x"></i></a>
                     
                         <a title="Github" target="_blank" href="//github.com/wongminho">
@@ -208,37 +208,6 @@
       
         
             
-<div class="page-reward">
-    <a id="rewardBtn" href="javascript:;">赏</a>
-</div>
-
-<div id="reward" class="post-modal reward-lay">
-    <a class="close" href="javascript:;" id="reward-close">×</a>
-    <span class="reward-title">
-        <i class="icon icon-quote-left"></i>
-        请我吃糖~
-        <i class="icon icon-quote-right"></i>
-    </span>
-    <div class="reward-content">
-        
-        <div class="reward-code">
-            <img id="rewardCode" src="/images/wechat_code.jpg" alt="打赏二维码">
-        </div>
-        <div class="reward-select">
-            
-            <label class="reward-select-item checked" data-id="wechat" data-wechat="/images/wechat_code.jpg">
-                <img class="reward-select-item-wechat" src="/images/wechat.png" alt="微信">
-            </label>
-            
-            
-            <label class="reward-select-item" data-id="alipay" data-alipay="/images/alipay_code.jpg">
-                <img class="reward-select-item-alipay" src="/images/alipay.png" alt="支付宝">
-            </label>
-            
-        </div>
-    </div>
-</div>
-
 
         
     </div>
@@ -375,7 +344,7 @@
       animate: true,
       isHome: false,
       share: true,
-      reward: 1
+      reward: 0
   }
 </script>
 <div class="sidebar">
@@ -460,10 +429,6 @@
 <script src="/js/search.js"></script>
 <script src="/js/main.js"></script>
 
-
-  <script src="//cdn.bootcss.com/particles.js/2.0.0/particles.min.js"></script>
-  <div id="particles"></div>
-  <script src="/js/particles.js"></script>
 
 
 
