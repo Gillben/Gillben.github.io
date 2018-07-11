@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OkHttp3 源码解析执行流程 | Keep On Going</title>
+  <title>OkHttp3 源码解析执行流程 | Gillben</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="GillBen,GillBen's Blog" />
@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3 源码解析执行流程">
 <meta property="og:url" content="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/index.html">
-<meta property="og:site_name" content="Keep On Going">
+<meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：   OkHttp请求网络的简单示例123456789101112">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -99,14 +99,8 @@
                         <a title="GillBen" target="_blank" href="//gillben.cn">
                             <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a title="Github" target="_blank" href="//github.com/wongminho">
+                        <a title="Github" target="_blank" href="//github.com/Gillben">
                             <i class="fa fa-github fa-2x"></i></a>
-                    
-                        <a title="Weibo" target="_blank" href="//weibo.com/WongMinHo">
-                            <i class="fa fa-weibo fa-2x"></i></a>
-                    
-                        <a title="Twitter" target="_blank" href="//twitter.com/huangminhow">
-                            <i class="fa fa-twitter fa-2x"></i></a>
                     
                 </div>
             </nav>
@@ -233,7 +227,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&title=《OkHttp3 源码解析执行流程》 — Keep On Going&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&title=《OkHttp3 源码解析执行流程》 — Gillben&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -243,7 +237,7 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&title=《OkHttp3 源码解析执行流程》 — Keep On Going&source=负阴抱阳，知行合一" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&title=《OkHttp3 源码解析执行流程》 — Gillben&source=负阴抱阳，知行合一" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -253,7 +247,7 @@
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OkHttp3 源码解析执行流程》 — Keep On Going&url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OkHttp3 源码解析执行流程》 — Gillben&url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>

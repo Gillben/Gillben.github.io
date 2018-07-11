@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>OkHttp3源码解析 连接池的复用 | Keep On Going</title>
+  <title>OkHttp3源码解析 连接池的复用 | Gillben</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
     <meta name="keywords" content="GillBen,GillBen's Blog" />
@@ -13,7 +13,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3源码解析 连接池的复用">
 <meta property="og:url" content="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/index.html">
-<meta property="og:site_name" content="Keep On Going">
+<meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存   本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2018-05-22T15:01:21.009Z">
@@ -95,14 +95,8 @@
                         <a title="GillBen" target="_blank" href="//gillben.cn">
                             <i class="fa fa-home fa-2x"></i></a>
                     
-                        <a title="Github" target="_blank" href="//github.com/wongminho">
+                        <a title="Github" target="_blank" href="//github.com/Gillben">
                             <i class="fa fa-github fa-2x"></i></a>
-                    
-                        <a title="Weibo" target="_blank" href="//weibo.com/WongMinHo">
-                            <i class="fa fa-weibo fa-2x"></i></a>
-                    
-                        <a title="Twitter" target="_blank" href="//twitter.com/huangminhow">
-                            <i class="fa fa-twitter fa-2x"></i></a>
                     
                 </div>
             </nav>
@@ -215,7 +209,7 @@
     <div class="post-share-list" id="share-list">
         <ul class="share-icons">
           <li>
-            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&title=《OkHttp3源码解析 连接池的复用》 — Keep On Going&pic=http://yoursite.comimages/logo.png" data-title="微博">
+            <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&title=《OkHttp3源码解析 连接池的复用》 — Gillben&pic=http://yoursite.comimages/logo.png" data-title="微博">
               <i class="fa fa-weibo"></i>
             </a>
           </li>
@@ -225,7 +219,7 @@
             </a>
           </li>
           <li>
-            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&title=《OkHttp3源码解析 连接池的复用》 — Keep On Going&source=负阴抱阳，知行合一" data-title="QQ">
+            <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&title=《OkHttp3源码解析 连接池的复用》 — Gillben&source=负阴抱阳，知行合一" data-title="QQ">
               <i class="fa fa-qq"></i>
             </a>
           </li>
@@ -235,7 +229,7 @@
             </a>
           </li>
           <li>
-            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OkHttp3源码解析 连接池的复用》 — Keep On Going&url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&via=http://yoursite.com" data-title="Twitter">
+            <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《OkHttp3源码解析 连接池的复用》 — Gillben&url=http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/&via=http://yoursite.com" data-title="Twitter">
               <i class="fa fa-twitter"></i>
             </a>
           </li>
