@@ -14,7 +14,7 @@
 <meta property="og:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-11T13:57:07.972Z">
+<meta property="og:updated_time" content="2018-07-11T14:40:33.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的事件分发">
 <meta name="twitter:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
@@ -258,7 +258,7 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始的。</p>
+            <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始。<br><a id="more"></a></p>
 <p>在处理View的事件分发时，View和ViewGroup(继承自View)稍有差异。</p>
 <blockquote>
 <ul>
@@ -292,7 +292,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/20/Android-View的事件分发/" data-id="cjjh78y530000z2fyhaidtsyf" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://yoursite.com/2018/05/20/Android-View的事件分发/" data-id="cjjh8fl5000002pfyha1fbaze" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -406,25 +406,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="title">OkHttp3源码解析 连接池的复用</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
@@ -437,6 +418,25 @@
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="title">OkHttp3源码解析 连接池的复用</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>

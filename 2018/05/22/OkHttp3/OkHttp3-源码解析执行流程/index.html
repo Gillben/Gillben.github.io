@@ -5,21 +5,21 @@
     
     <title>OkHttp3 源码解析执行流程 | Gillben</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：   OkHttp请求网络的简单示例123456789101112">
+    <meta name="description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta name="keywords" content="OkHttp3,开源框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3 源码解析执行流程">
 <meta property="og:url" content="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/index.html">
 <meta property="og:site_name" content="Gillben">
-<meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：   OkHttp请求网络的简单示例123456789101112">
+<meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-15a4d1e8ec4e0df0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-ee63856977f571ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-05-22T15:04:24.500Z">
+<meta property="og:updated_time" content="2018-07-11T14:39:08.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OkHttp3 源码解析执行流程">
-<meta name="twitter:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：   OkHttp请求网络的简单示例123456789101112">
+<meta name="twitter:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
     
 
@@ -263,6 +263,7 @@
             <blockquote>
 <p>OkHttp是一款网络请求框架，【<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">OkHttp传送门</a>】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：</p>
 </blockquote>
+<a id="more"></a>
 <p><img src="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="okhttp流程.png"></p>
 <h2 id="OkHttp请求网络的简单示例"><a href="#OkHttp请求网络的简单示例" class="headerlink" title="OkHttp请求网络的简单示例"></a>OkHttp请求网络的简单示例</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String URL_CONTENT = <span class="string">"https://www.baidu.com/"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">doOkHttp</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">                .retryOnConnectionFailure(<span class="keyword">true</span>)  <span class="comment">//连接失败后进行重连</span></span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> Request request = <span class="keyword">new</span> Request.Builder()              </span><br><span class="line">                .url(URL_CONTENT)</span><br><span class="line">                .build();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//异步方式请求网络</span></span><br><span class="line">        okHttpClient.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</span><br><span class="line">                <span class="comment">//请求失败</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">                <span class="comment">//请求成功,对response进行处理</span></span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>上面的代码，首先创建一个okHttpClient对象，调用newCall()并且request作为参数传入，然后执行enqueue()，并且new一个Callback，请求结果的回调，这个过程是异步的。</p>
@@ -323,7 +324,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjh78y6s000tz2fy2h4gwo6e" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjh8fl6p000s2pfy51qecn1s" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -398,19 +399,10 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    OkHttp3源码解析 连接池的复用
-                
-            </div>
-        </a>
     
-    
-        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">OkHttp3 源码解析内部缓存</div>
+            <div class="article-nav-title">OkHttp3源码解析 连接池的复用</div>
         </a>
     
 </nav>
@@ -437,25 +429,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="title">OkHttp3源码解析 连接池的复用</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
@@ -468,6 +441,25 @@
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="title">OkHttp3源码解析 连接池的复用</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
