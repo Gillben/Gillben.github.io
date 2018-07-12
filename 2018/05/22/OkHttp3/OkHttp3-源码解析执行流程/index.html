@@ -13,14 +13,12 @@
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-15a4d1e8ec4e0df0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-ee63856977f571ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-11T14:39:08.393Z">
+<meta property="og:image" content="http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg">
+<meta property="og:updated_time" content="2018-07-12T12:45:50.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OkHttp3 源码解析执行流程">
 <meta name="twitter:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6271454-3fffb4af1bd1d0cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg">
     
 
     
@@ -220,6 +218,14 @@
             <section id="main"><article id="post-OkHttp3/OkHttp3-源码解析执行流程" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
+            
+	
+		<img src="http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg" class="article-banner" />
+	
+
+
+
+        
         
             <header class="article-header">
                 
@@ -414,7 +420,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/rock-731140_1280.jpg)" alt="OkHttp3源码解析 连接池的复用" class="thumbnail-image"></span>
     
 </a>
 
@@ -433,7 +439,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg)" alt="OkHttp3 源码解析执行流程" class="thumbnail-image"></span>
     
 </a>
 
@@ -452,7 +458,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/surfing-926822_1280.jpg)" alt="OkHttp3 源码解析内部缓存" class="thumbnail-image"></span>
     
 </a>
 
@@ -471,7 +477,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/coffee-2242213_1280.jpg)" alt="View加载优化之懒汉模式-ViewStub" class="thumbnail-image"></span>
     
 </a>
 

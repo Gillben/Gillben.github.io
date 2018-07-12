@@ -5,18 +5,20 @@
     
     <title>OkHttp3源码解析 连接池的复用 | Gillben</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存   本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁">
+    <meta name="description" content="OkHttp3系列文章  OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存  本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网">
 <meta name="keywords" content="OkHttp3,开源框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3源码解析 连接池的复用">
 <meta property="og:url" content="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/index.html">
 <meta property="og:site_name" content="Gillben">
-<meta property="og:description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存   本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁">
+<meta property="og:description" content="OkHttp3系列文章  OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存  本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-11T14:38:14.206Z">
+<meta property="og:image" content="http://pbqg4zkla.bkt.clouddn.com/rock-731140_1280.jpg">
+<meta property="og:updated_time" content="2018-07-12T12:43:34.087Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OkHttp3源码解析 连接池的复用">
-<meta name="twitter:description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存   本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁">
+<meta name="twitter:description" content="OkHttp3系列文章  OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存  本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网">
+<meta name="twitter:image" content="http://pbqg4zkla.bkt.clouddn.com/rock-731140_1280.jpg">
     
 
     
@@ -216,6 +218,14 @@
             <section id="main"><article id="post-OkHttp3/OkHttp3-源码解析-连接池的复用" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
+            
+	
+		<img src="http://pbqg4zkla.bkt.clouddn.com/rock-731140_1280.jpg" class="article-banner" />
+	
+
+
+
+        
         
             <header class="article-header">
                 
@@ -257,12 +267,10 @@
         
             
             <p>OkHttp3系列文章</p>
-<blockquote>
 <ul>
 <li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
 <li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more">OkHttp3 源码解析内部缓存</a></li>
 </ul>
-</blockquote>
 <p>本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网络请求导致性能下降的问题。<br><a id="more"></a></p>
 <h3 id="找到获取连接的入口，ConnectInterceptor的intercept-方法"><a href="#找到获取连接的入口，ConnectInterceptor的intercept-方法" class="headerlink" title="找到获取连接的入口，ConnectInterceptor的intercept()方法"></a>找到获取连接的入口，ConnectInterceptor的intercept()方法</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    RealInterceptorChain realChain = (RealInterceptorChain) chain;</span><br><span class="line">    Request request = realChain.request();</span><br><span class="line">    StreamAllocation streamAllocation = realChain.streamAllocation();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// We need the network to satisfy this request. Possibly for validating a conditional GET.</span></span><br><span class="line">    <span class="keyword">boolean</span> doExtensiveHealthChecks = !request.method().equals(<span class="string">"GET"</span>);</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    HttpCodec httpCodec = streamAllocation.newStream(client, chain, doExtensiveHealthChecks);</span><br><span class="line">    RealConnection connection = streamAllocation.connection();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> realChain.proceed(request, streamAllocation, httpCodec, connection);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>在注释1处利用StreamAllocation的newStream()获取httpCodec对象，这个过程会从连接池中寻找是否有可用连接，若有，则返回；若没有，则创建一个新的连接，并加入连接池中。</p>
@@ -386,7 +394,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/rock-731140_1280.jpg)" alt="OkHttp3源码解析 连接池的复用" class="thumbnail-image"></span>
     
 </a>
 
@@ -405,7 +413,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg)" alt="OkHttp3 源码解析执行流程" class="thumbnail-image"></span>
     
 </a>
 
@@ -424,7 +432,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/surfing-926822_1280.jpg)" alt="OkHttp3 源码解析内部缓存" class="thumbnail-image"></span>
     
 </a>
 
@@ -443,7 +451,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" class="thumbnail">
     
     
-        <span class="thumbnail-image thumbnail-none"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/coffee-2242213_1280.jpg)" alt="View加载优化之懒汉模式-ViewStub" class="thumbnail-image"></span>
     
 </a>
 
