@@ -248,6 +248,11 @@
         <div class="article-entry" itemprop="articleBody">
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么用ViewStub能提升程序初始化性能"><span class="toc-number">1.</span> <span class="toc-text">为什么用ViewStub能提升程序初始化性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么去使用ViewStub，做到按需加载，一起看下下面一段简单描述。"><span class="toc-number">2.</span> <span class="toc-text">怎么去使用ViewStub，做到按需加载，一起看下下面一段简单描述。</span></a></li></ol>
+                </div>
+            
             <blockquote>
 <p>谈到布局优化，通常都会想到标签include和merge。简单先说下这两个标签的好处：include可以减少布局文件内容，比如，在我们需要在多个布局中都添加标题栏时，可以创建一个单独的xml文件，添加标题内容到该xml中，然后在需要用到的目标布局里面用include标签添加已创建好的标题栏；merge可以减少多余的包含控件。两者一起使用，可以减少布局的层级结构，从而减少绘制的工作量。注意：include标签只支持android:layout_with和android:layout_height属性，其它属性是不支持的。O了~开始这章的重点，</p>
 <p>很多时候，在初始化程序时都是一次性把布局加载进来，使得绘制工作量变多，导致程序初始化性能降低。比如：网络请求错误时的布局、一些评论显示的布局（未有评论前）等等，这些布局我们并不经常用到，能不能按需加载？可以，那就是ViewStub。<br><a id="more"></a></p>

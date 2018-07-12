@@ -248,6 +248,11 @@
         <div class="article-entry" itemprop="articleBody">
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、DecorView-dispatchTouchEvent"><span class="toc-number">1.</span> <span class="toc-text">1、DecorView # dispatchTouchEvent()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、Activity-dispatchTouchEvent"><span class="toc-number">2.</span> <span class="toc-text">2、Activity # dispatchTouchEvent()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、PhoneWindow-superDispatchTouchEvent"><span class="toc-number">3.</span> <span class="toc-text">3、PhoneWindow # superDispatchTouchEvent()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、ViewGroup-dispatchTouchEvent-，由于代码量太长，这里选择关键性的代码"><span class="toc-number">4.</span> <span class="toc-text">4、ViewGroup # dispatchTouchEvent()，由于代码量太长，这里选择关键性的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、View-dispatchTouchEvent-，省略了部分代码"><span class="toc-number">5.</span> <span class="toc-text">5、View # dispatchTouchEvent()，省略了部分代码</span></a></li></ol>
+                </div>
+            
             <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始。</p>
 <p><strong>在处理View的事件分发时，View和ViewGroup(继承自View)稍有差异。</strong></p>
 <blockquote>

@@ -248,6 +248,11 @@
         <div class="article-entry" itemprop="articleBody">
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#对于这几个属性简单了解后，接着分析之前提到的四种线程池"><span class="toc-number">1.</span> <span class="toc-text">对于这几个属性简单了解后，接着分析之前提到的四种线程池</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1、newFixedThreadPool"><span class="toc-number"></span> <span class="toc-text">1、newFixedThreadPool()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2、newSingleThreadExecutor"><span class="toc-number"></span> <span class="toc-text">2、newSingleThreadExecutor()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3、newCachedThreadPool"><span class="toc-number"></span> <span class="toc-text">3、newCachedThreadPool()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、newScheduledThreadPool"><span class="toc-number"></span> <span class="toc-text">4、newScheduledThreadPool()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程池的关闭："><span class="toc-number"></span> <span class="toc-text">线程池的关闭：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#前面对线程池几个属性和创建方式进行了简单的阐述，下面再对几个属性进行详解："><span class="toc-number"></span> <span class="toc-text">前面对线程池几个属性和创建方式进行了简单的阐述，下面再对几个属性进行详解：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常见的工作队列-BlockingQueue-："><span class="toc-number"></span> <span class="toc-text">常见的工作队列(BlockingQueue)：</span></a>
+                </div>
+            
             <p>多线程可以说是开发应用程序的标配了，在Java中通常情况都是通过new Thread()来创建一个工作线程，如果需要并发执行任务时，以这种方式创建线程，由于线程的频繁创建和销毁，会消耗大量的系统资源，程序出现卡顿，甚至出现OOM。因此，Java中利用了线程池，它通过对已存在线程的重用，降低了线程创建和销毁所造成的资源消耗，可以自己控制并发数，不必等待新线程的创建时间便执行任务，提高了系统的响应速度。</p>
 <p><strong>Java通过Executors这个类，提供了四种线程池：</strong></p>
 <blockquote>
