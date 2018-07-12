@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-07-11T14:40:33.961Z">
+<meta property="og:image" content="http://pbqg4zkla.bkt.clouddn.com/500042199_banner.jpg">
+<meta property="og:updated_time" content="2018-07-12T11:23:49.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="View的事件分发">
 <meta name="twitter:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
-<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://pbqg4zkla.bkt.clouddn.com/500042199_banner.jpg">
     
 
     
@@ -152,7 +152,7 @@
             
                 
 
-<aside id="profile" class="profile-fixed">
+<aside id="profile" class="">
     <div class="inner profile-inner">
         <div class="base-info profile-block">
             <img id="avatar" src="/css/images/avatar.png" />
@@ -218,6 +218,14 @@
             <section id="main"><article id="post-Android-View的事件分发" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
+            
+	
+		<img src="http://pbqg4zkla.bkt.clouddn.com/500042199_banner.jpg" class="article-banner" />
+	
+
+
+
+        
         
             <header class="article-header">
                 
@@ -258,14 +266,15 @@
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始。<br><a id="more"></a></p>
-<p>在处理View的事件分发时，View和ViewGroup(继承自View)稍有差异。</p>
+            <p>View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件交付于ViewRootImpl的enqueueInputEvent()方法，通过ViewRootImpl的内部类InputStage转换处理，最终交给View的dispatchTouchEvent()方法，事件分发的开始。<br>一个应用程序的根视图(顶级View)是DecorView，也就是说，View的事件分发实际是由DecorView中的dispatchTouchEvent()方法开始。</p>
+<p><strong>在处理View的事件分发时，View和ViewGroup(继承自View)稍有差异。</strong></p>
 <blockquote>
 <ul>
 <li>View的相关处理方法：<br>dispatchTouchEvent()、onTouchEvent()</li>
 <li>ViewGroup的相关处理方法：<br>dispatchTouchEvent()、onInterceptTouchEvent()、onTouchEvent()</li>
 </ul>
 </blockquote>
+<a id="more"></a>
 <h3 id="1、DecorView-dispatchTouchEvent"><a href="#1、DecorView-dispatchTouchEvent" class="headerlink" title="1、DecorView # dispatchTouchEvent()"></a>1、DecorView # dispatchTouchEvent()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Window.Callback cb = mWindow.getCallback();</span><br><span class="line">        <span class="keyword">return</span> cb != <span class="keyword">null</span> &amp;&amp; !mWindow.isDestroyed() &amp;&amp; mFeatureId &lt; <span class="number">0</span></span><br><span class="line">                ? cb.dispatchTouchEvent(ev) : <span class="keyword">super</span>.dispatchTouchEvent(ev);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>上面代码中，mWindow是一个PhoneWindow类型的变量，在Activity的attach()方法中对mWindow进行赋值【<a href="https://www.jianshu.com/p/15605e70e170" target="_blank" rel="noopener">可以参考这篇文章 — Activity的启动过程</a>】。且Activity实现了Window.Callback接口<strong>（实现Window.Callback的不只有Activity，比如Dialog，这里以Activity为例）</strong>，也就是说：cb.dispatchTouchEvent()回调的是Activity中的dispatchTouchEvent()，执行这一步首先要满足前提条cb是否存在，PhoneWindow没有销毁，mFeatureId &lt; 0表示DecorView存在。否则会执行ViewGroup的dispatchTouchEvent()方法（DecorView继承FrameLayout）。</p>
 <h3 id="2、Activity-dispatchTouchEvent"><a href="#2、Activity-dispatchTouchEvent" class="headerlink" title="2、Activity # dispatchTouchEvent()"></a>2、Activity # dispatchTouchEvent()</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (ev.getAction() == MotionEvent.ACTION_DOWN) &#123;</span><br><span class="line">            <span class="comment">//内部是一个空实现，用于点击时与用户交互</span></span><br><span class="line">            onUserInteraction();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//getWindow()返回PhoneWindow对象</span></span><br><span class="line">        <span class="keyword">if</span> (getWindow().superDispatchTouchEvent(ev)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//若前面没有消费事件，最后交给Activity的onTouchEvent</span></span><br><span class="line">        <span class="keyword">return</span> onTouchEvent(ev);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -360,6 +369,10 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
     
     
+        <section id="comments">
+	<div id="commentContainer"></div>
+</section>
+    
 
 </section>
             
@@ -394,25 +407,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
@@ -425,6 +419,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
@@ -454,7 +467,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                             <a href="/2018/05/20/Android-View的事件分发/" class="thumbnail">
     
     
-        <span style="background-image:url(https://upload-images.jianshu.io/upload_images/6271454-2bd0e0b3fce383b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)" alt="View的事件分发" class="thumbnail-image"></span>
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/500042199_banner.jpg)" alt="View的事件分发" class="thumbnail-image"></span>
     
 </a>
 
@@ -522,6 +535,22 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     </div>
 </footer>
         
+    
+	<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+	<script>
+		var gitment = new Gitment({
+			owner: 'Gillben',
+			repo: 'Gillben.github.io',
+			oauth: {
+				client_id: 'f41c811bba7ee6c4545a',
+				client_secret: '70fa3d57cfab374141b28ca2d897af7571549709',
+			},
+		})
+		gitment.render('commentContainer')
+	</script>
+	
+
 
 
     
