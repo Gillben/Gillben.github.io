@@ -9,7 +9,7 @@
 <meta name="keywords" content="OkHttp3,开源框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3源码解析 连接池的复用">
-<meta property="og:url" content="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/index.html">
+<meta property="og:url" content="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/index.html">
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="OkHttp3系列文章   OkHttp3 源码解析执行流程 OkHttp3 源码解析内部缓存   本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁">
 <meta property="og:locale" content="zh-Hans">
@@ -259,8 +259,8 @@
             <p>OkHttp3系列文章</p>
 <blockquote>
 <ul>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">OkHttp3 源码解析执行流程</a></li>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more" target="_blank" rel="noopener">OkHttp3 源码解析内部缓存</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more">OkHttp3 源码解析内部缓存</a></li>
 </ul>
 </blockquote>
 <p>本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网络请求导致性能下降的问题。<br><a id="more"></a></p>
@@ -305,7 +305,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" data-id="cjjhs608c000smwfykt4ern32" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" data-id="cjjhstocw000spifykezznrfk" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -381,9 +381,9 @@
 <nav id="article-nav">
     
     
-        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">OkHttp3 源码解析执行流程</div>
+            <div class="article-nav-title">OkHttp3 源码解析内部缓存</div>
         </a>
     
 </nav>
@@ -429,25 +429,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
     
     
@@ -460,6 +441,25 @@
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>

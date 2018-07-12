@@ -8,7 +8,7 @@
     <meta name="description" content="负阴抱阳，知行合一">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Gillben">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://gillben.cn/index.html">
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="负阴抱阳，知行合一">
 <meta property="og:locale" content="zh-Hans">
@@ -257,8 +257,8 @@
             <p><p>OkHttp3系列文章</p>
 <blockquote>
 <ul>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">OkHttp3 源码解析执行流程</a></li>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more" target="_blank" rel="noopener">OkHttp3 源码解析内部缓存</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more">OkHttp3 源码解析内部缓存</a></li>
 </ul>
 </blockquote>
 <p>本文将对OkHttp3的连接池的复用进行深一步的分析，我们知道，Http是基于TCP协议的，而TCP建立连接需要经过三次握手，断开需要经过四次挥手，因此，Http中添加了一种KeepAlive机制，当数据传输完毕后仍然保持连接，等待下一次请求时直接复用该连接。通过对连接池的管理，复用连接，减少了频繁的网络请求导致性能下降的问题。<br></p>
@@ -274,7 +274,145 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" data-id="cjjhs608c000smwfykt4ern32" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" data-id="cjjhstocw000spifykezznrfk" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-OkHttp3/OkHttp3源码解析内部缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">OkHttp3 源码解析内部缓存</a>
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fas fa-calendar-alt"></i>
+        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">
+            <time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fas fa-folder"></i>
+        <a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/OkHttp3/">OkHttp3</a>, <a class="tag-link" href="/tags/开源框架/">开源框架</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            <p><p>OkHttp3系列文章</p>
+<blockquote>
+<ul>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/">OkHttp3 源码解析 连接池的复用</a></li>
+</ul>
+</blockquote>
+<p>如果有了解过OkHttp的执行流程，可以知道，在拦截器链中有一个缓存拦截器CacheInterceptor，里面决定了是由缓存中获取数据还是通过网络获取。笔者也以这个为入口，展开对OkHttp的缓存分析</p></p>
+            <p class="article-more-link">
+                <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/#more">Read More</a>
+            </p>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" data-id="cjjhstocy000tpifyurl6k9av" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -407,145 +545,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjhs608d000tmwfyzah1p6hh" class="article-share-link"><i class="fas fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fab fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fab fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fab fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fab fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
-
-    <article id="post-OkHttp3/OkHttp3源码解析内部缓存" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">OkHttp3 源码解析内部缓存</a>
-        </h1>
-    
-
-                
-                    <div class="article-meta">
-                        
-    <div class="article-date">
-        <i class="fas fa-calendar-alt"></i>
-        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">
-            <time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time>
-        </a>
-    </div>
-
-
-                        
-    <div class="article-category">
-    	<i class="fas fa-folder"></i>
-        <a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/OkHttp3/">OkHttp3</a>, <a class="tag-link" href="/tags/开源框架/">开源框架</a>
-    </div>
-
-                    </div>
-                
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            <p><p>OkHttp3系列文章</p>
-<blockquote>
-<ul>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/" target="_blank" rel="noopener">OkHttp3 源码解析执行流程</a></li>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/" target="_blank" rel="noopener">OkHttp3 源码解析 连接池的复用</a></li>
-</ul>
-</blockquote>
-<p>如果有了解过OkHttp的执行流程，可以知道，在拦截器链中有一个缓存拦截器CacheInterceptor，里面决定了是由缓存中获取数据还是通过网络获取。笔者也以这个为入口，展开对OkHttp的缓存分析</p></p>
-            <p class="article-more-link">
-                <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/#more">Read More</a>
-            </p>
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" data-id="cjjhs608e000wmwfy95l4hoe6" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjhstocz000wpifysz77m23p" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -678,7 +678,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/20/View加载优化之懒汉模式-ViewStub/" data-id="cjjhs606t0002mwfy3rrvxqc3" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/20/View加载优化之懒汉模式-ViewStub/" data-id="cjjhstobd0002pifywuufe4ce" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -809,7 +809,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/20/Android-View的事件分发/" data-id="cjjhs606o0000mwfyfsjy9lpx" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/20/Android-View的事件分发/" data-id="cjjhstob90000pifyu0lyyqkh" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -941,7 +941,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/20/探索Java-线程池/" data-id="cjjhs606w0005mwfyuc43931a" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/20/探索Java-线程池/" data-id="cjjhstobi0006pify1i5vpbw6" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1049,25 +1049,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
     
     
@@ -1080,6 +1061,25 @@
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>

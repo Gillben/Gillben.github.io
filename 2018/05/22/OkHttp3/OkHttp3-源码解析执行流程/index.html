@@ -9,7 +9,7 @@
 <meta name="keywords" content="OkHttp3,开源框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OkHttp3 源码解析执行流程">
-<meta property="og:url" content="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/index.html">
+<meta property="og:url" content="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/index.html">
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta property="og:locale" content="zh-Hans">
@@ -280,7 +280,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">enqueue</span><span class="params">(AsyncCall call)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (runningAsyncCalls.size() &lt; maxRequests &amp;&amp; runningCallsForHost(call) &lt; maxRequestsPerHost) &#123;</span><br><span class="line">      runningAsyncCalls.add(call);</span><br><span class="line">      executorService().execute(call);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      readyAsyncCalls.add(call);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>从代码可以发现，Dispatcher的enqueue()是一个同步方法，maxRequests是最大请求数(值为64)，maxRequestsPerHost是Host最大请求数据(值为5)，当满足这两个条件时，把任务添加到执行队列runningAsyncCalls，立刻执行，否则加入等待队列readyAsyncCalls，等待异步调用。executorService()内部创建了一个执行任务的线程池，并且返回一个执行对象ExecutorService。<br>executorService()的内部实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> ExecutorService <span class="title">executorService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (executorService == <span class="keyword">null</span>) &#123;</span><br><span class="line">      executorService = <span class="keyword">new</span> ThreadPoolExecutor(<span class="number">0</span>, Integer.MAX_VALUE, <span class="number">60</span>, TimeUnit.SECONDS,</span><br><span class="line">          <span class="keyword">new</span> SynchronousQueue&lt;Runnable&gt;(), Util.threadFactory(<span class="string">"OkHttp Dispatcher"</span>, <span class="keyword">false</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> executorService;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>以单例模式中的懒汉模式创建了一个线程池。其实上面创建的线程池和我们直接用Executors的newCachedThreadPool()创建是类似的，核心线程数为0，线程空闲时的超时时间60s，直接提交策略。关于线程池的分析，可以阅读【<a href="http://gillben.cn/2018/05/20/%E6%8E%A2%E7%B4%A2Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0/" target="_blank" rel="noopener">探索Java 线程池</a>】这篇文章。在这里，往线程池中添加的任务对象是AsyncCall，那么看看AsyncCall的内部实现：</p>
+<p>以单例模式中的懒汉模式创建了一个线程池。其实上面创建的线程池和我们直接用Executors的newCachedThreadPool()创建是类似的，核心线程数为0，线程空闲时的超时时间60s，直接提交策略。关于线程池的分析，可以阅读【<a href="http://gillben.cn/2018/05/20/%E6%8E%A2%E7%B4%A2Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0/">探索Java 线程池</a>】这篇文章。在这里，往线程池中添加的任务对象是AsyncCall，那么看看AsyncCall的内部实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">AsyncCall</span> <span class="keyword">extends</span> <span class="title">NamedRunnable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Callback responseCallback;</span><br><span class="line"></span><br><span class="line">    AsyncCall(Callback responseCallback) &#123;</span><br><span class="line">      <span class="keyword">super</span>(<span class="string">"OkHttp %s"</span>, redactedUrl());</span><br><span class="line">      <span class="keyword">this</span>.responseCallback = responseCallback;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">host</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> originalRequest.url().host();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">Request <span class="title">request</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> originalRequest;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">RealCall <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> RealCall.<span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span> </span><br><span class="line">     <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">execute</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="keyword">boolean</span> signalledCallback = <span class="keyword">false</span>;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//核心请求</span></span><br><span class="line">        Response response = getResponseWithInterceptorChain();</span><br><span class="line">        <span class="comment">//根据是否取消RetryAndFollowUpInterceptor,分别回调onFailure或onResponse</span></span><br><span class="line">        <span class="keyword">if</span> (retryAndFollowUpInterceptor.isCanceled()) &#123;</span><br><span class="line">          signalledCallback = <span class="keyword">true</span>;</span><br><span class="line">          responseCallback.onFailure(RealCall.<span class="keyword">this</span>, <span class="keyword">new</span> IOException(<span class="string">"Canceled"</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          signalledCallback = <span class="keyword">true</span>;</span><br><span class="line">          responseCallback.onResponse(RealCall.<span class="keyword">this</span>, response);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">if</span> (signalledCallback) &#123;</span><br><span class="line">          <span class="comment">// Do not signal the callback twice!</span></span><br><span class="line">          Platform.get().log(INFO, <span class="string">"Callback failure for "</span> + toLoggableString(), e);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          eventListener.callFailed(RealCall.<span class="keyword">this</span>, e);</span><br><span class="line">          responseCallback.onFailure(RealCall.<span class="keyword">this</span>, e);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">finally</span> &#123;  </span><br><span class="line">        <span class="comment">//请求完毕，移除runningAsyncCalls中当前执行的Call。</span></span><br><span class="line">        <span class="comment">//并且查找等待队列readyAsyncCalls是否存在任务，存在，则添加执行队列runningAsyncCalls，然后执行任务</span></span><br><span class="line">        <span class="comment">//如果runningAsyncCalls不存在任务，且idleCallback不为null，则启动空闲状态Runnable</span></span><br><span class="line">        client.dispatcher().finished(<span class="keyword">this</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 <p>NamedRunnable实现了Runnable接口，在其run()方法内部调用了execute()方法，这里运用了设计模式中的模板模式，那么，这里就把任务交给了AsyncCall的execute()方法。通过代码的注释可以知道，把请求交由了getResponseWithInterceptorChain()方法，这个方法直译过来意思就是：用拦截器链获取响应报文。而方法内部也正运用了设计模式中的责任链模式。</p>
 <blockquote>
@@ -311,8 +311,8 @@
 <p>到这里，OkHttp的执行流程就分析完毕了。</p>
 <p>关于OkHttp3系列的其它文章：</p>
 <blockquote>
-<p><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/" target="_blank" rel="noopener">OkHttp3 源码解析 连接池的复用</a></p>
-<p><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more" target="_blank" rel="noopener">OkHttp3源码解析内部缓存</a></p>
+<p><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/">OkHttp3 源码解析 连接池的复用</a></p>
+<p><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E5%86%85%E9%83%A8%E7%BC%93%E5%AD%98/#more">OkHttp3源码解析内部缓存</a></p>
 </blockquote>
 
         
@@ -324,7 +324,7 @@
 
 </div>
 
-    <a data-url="http://yoursite.com/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjhs608d000tmwfyzah1p6hh" class="article-share-link"><i class="fas fa-share"></i>Share</a>
+    <a data-url="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" data-id="cjjhstocz000wpifysz77m23p" class="article-share-link"><i class="fas fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -399,19 +399,19 @@
         
 <nav id="article-nav">
     
-        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    OkHttp3源码解析 连接池的复用
+                    OkHttp3 源码解析内部缓存
                 
             </div>
         </a>
     
     
-        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">OkHttp3 源码解析内部缓存</div>
+            <div class="article-nav-title">View加载优化之懒汉模式-ViewStub</div>
         </a>
     
 </nav>
@@ -457,25 +457,6 @@
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
     
     
@@ -488,6 +469,25 @@
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
