@@ -319,7 +319,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
 
 
-    <article id="post-OkHttp3/OkHttp3源码解析内部缓存" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-OkHttp3/OkHttp3-源码解析执行流程" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -327,7 +327,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">OkHttp3 源码解析内部缓存</a>
+            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">OkHttp3 源码解析执行流程</a>
         </h1>
     
 
@@ -336,7 +336,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
     <div class="article-date">
         <i class="fas fa-calendar-alt"></i>
-        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">
+        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">
             <time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time>
         </a>
     </div>
@@ -361,16 +361,11 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><p>OkHttp3系列文章</p>
-<blockquote>
-<ul>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
-<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/">OkHttp3 源码解析 连接池的复用</a></li>
-</ul>
-</blockquote>
-<p>如果有了解过OkHttp的执行流程，可以知道，在拦截器链中有一个缓存拦截器CacheInterceptor，里面决定了是由缓存中获取数据还是通过网络获取。笔者也以这个为入口，展开对OkHttp的缓存分析</p></p>
+            <p><blockquote>
+<p>OkHttp是一款网络请求框架，【<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">OkHttp传送门</a>】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：</p>
+</blockquote></p>
             <p class="article-more-link">
-                <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/#more">Read More</a>
+                <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/#more">Read More</a>
             </p>
         
         </div>
@@ -426,7 +421,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 
 
 
-    <article id="post-OkHttp3/OkHttp3-源码解析执行流程" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-OkHttp3/OkHttp3源码解析内部缓存" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -434,7 +429,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">OkHttp3 源码解析执行流程</a>
+            <a class="article-title" href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">OkHttp3 源码解析内部缓存</a>
         </h1>
     
 
@@ -443,7 +438,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         
     <div class="article-date">
         <i class="fas fa-calendar-alt"></i>
-        <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">
+        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/">
             <time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time>
         </a>
     </div>
@@ -468,11 +463,16 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         
         <div class="article-entry" itemprop="articleBody">
         
-            <p><blockquote>
-<p>OkHttp是一款网络请求框架，【<a href="https://github.com/square/okhttp" target="_blank" rel="noopener">OkHttp传送门</a>】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：</p>
-</blockquote></p>
+            <p><p>OkHttp3系列文章</p>
+<blockquote>
+<ul>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B/">OkHttp3 源码解析执行流程</a></li>
+<li><a href="http://gillben.cn/2018/05/22/OkHttp3/OkHttp3-%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90-%E8%BF%9E%E6%8E%A5%E6%B1%A0%E7%9A%84%E5%A4%8D%E7%94%A8/">OkHttp3 源码解析 连接池的复用</a></li>
+</ul>
+</blockquote>
+<p>如果有了解过OkHttp的执行流程，可以知道，在拦截器链中有一个缓存拦截器CacheInterceptor，里面决定了是由缓存中获取数据还是通过网络获取。笔者也以这个为入口，展开对OkHttp的缓存分析</p></p>
             <p class="article-more-link">
-                <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/#more">Read More</a>
+                <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/#more">Read More</a>
             </p>
         
         </div>
@@ -880,25 +880,6 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="thumbnail">
     
     
@@ -911,6 +892,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
                             <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
