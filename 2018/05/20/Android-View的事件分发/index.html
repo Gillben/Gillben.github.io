@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://gillben.cn/2018/05/20/Android-View的事件分发/index.html">
 <meta property="og:site_name" content="Gillben">
 <meta property="og:description" content="View的事件分发所针对的是MotionEvent事件，在Touch过程中会产生大量的MotionEvent，记录了与Touch相关的事件。一次ACTION_DOWN、中间可能多次ACTION_MOVE、一次ACTION_UP，这便是一次完整的MotionEvent事件。在我们点击屏幕的那一刻，会先经过硬件的一系列处理，然后在当前应用的主(UI)线程中接收到来自底层传输过来的input事件，将事件">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pbqg4zkla.bkt.clouddn.com/500042199_banner.jpg">
 <meta property="og:updated_time" content="2018-07-12T11:35:14.333Z">
 <meta name="twitter:card" content="summary">
@@ -86,14 +86,14 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
             <span class="ins-close ins-selectable"><i class="fas fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -105,11 +105,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -139,7 +139,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
     </div>
 
                 </td>
@@ -159,16 +159,16 @@
             <h2 id="name">GillBen</h2>
             <h3 id="title">Keep On Going</h3>
             <span id="location"><i class="fas fa-map-marker-alt" style="padding-right: 5px"></i>ShenZhen, China</span>
-            <a id="follow" target="_blank" href="http://github.com/Gillben/">FOLLOW</a>
+            <a id="follow" target="_blank" href="http://github.com/Gillben/">关注我</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 6
-                <span>posts</span>
+                <span>文章</span>
             </div>
             <div class="article-info-block">
                 7
-                <span>tags</span>
+                <span>标签</span>
             </div>
         </div>
         
@@ -346,7 +346,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 <nav id="article-nav">
     
         <a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
+            <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
                     View加载优化之懒汉模式-ViewStub
@@ -356,7 +356,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
     
         <a href="/2018/05/20/探索Java-线程池/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+            <strong class="article-nav-caption">下一篇</strong>
             <div class="article-nav-title">Java线程池</div>
         </a>
     
@@ -381,7 +381,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
    
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">最新文章</h3>
         <div class="widget">
             <ul id="recent-post" class="">
                 
@@ -487,7 +487,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">categories</h3>
+        <h3 class="widget-title">分类</h3>
         <div class="widget">
             <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/OkHttp3/">OkHttp3</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/View系列/">View系列</a><span class="category-list-count">2</span></li></ul>
         </div>
@@ -496,16 +496,16 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
+        <h3 class="widget-title">归档</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a><span class="archive-list-count">6</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">6</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tags</h3>
+        <h3 class="widget-title">标签</h3>
         <div class="widget">
             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java线程/">Java线程</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OkHttp3/">OkHttp3</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ThreadPool/">ThreadPool</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/View/">View</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/开源框架/">开源框架</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/源码/">源码</a><span class="tag-list-count">2</span></li></ul>
         </div>
@@ -514,7 +514,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tag cloud</h3>
+        <h3 class="widget-title">标签云</h3>
         <div class="widget tagcloud">
             <a href="/tags/Android/" style="font-size: 15px;">Android</a> <a href="/tags/Java线程/" style="font-size: 10px;">Java线程</a> <a href="/tags/OkHttp3/" style="font-size: 20px;">OkHttp3</a> <a href="/tags/ThreadPool/" style="font-size: 10px;">ThreadPool</a> <a href="/tags/View/" style="font-size: 15px;">View</a> <a href="/tags/开源框架/" style="font-size: 20px;">开源框架</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a>
         </div>
