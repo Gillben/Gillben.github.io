@@ -14,7 +14,7 @@
 <meta property="og:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://pbqg4zkla.bkt.clouddn.com/mountain-climber-2427191_1280.jpg">
-<meta property="og:updated_time" content="2018-07-12T12:45:50.176Z">
+<meta property="og:updated_time" content="2018-07-13T11:15:19.635Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OkHttp3 源码解析执行流程">
 <meta name="twitter:description" content="OkHttp是一款网络请求框架，【OkHttp传送门】，为了在开发中使用的更加得心应手，必然的要去探究其源码，分析其中的工作原理，而且还能学习框架的设计思想。文章主要对OkHttp整体的工作流程进行分析，所以一些操作方法并没有涉及，读者可以通过传送门阅读文档自行实践。在分析之前，先看一张整体的流程图（本文内容会根据图的流程展开）：">
@@ -225,7 +225,7 @@
     <div class="article-date">
         <i class="fas fa-calendar-alt"></i>
         <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/">
-            <time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time>
+            <time datetime="2018-05-22T14:26:00.000Z" itemprop="datePublished">2018-05-22</time>
         </a>
     </div>
 
@@ -373,9 +373,9 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
         </a>
     
     
-        <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">OkHttp3 源码解析内部缓存</div>
+            <div class="article-nav-title">View加载优化之懒汉模式-ViewStub</div>
         </a>
     
 </nav>
@@ -406,6 +406,25 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/surfing-926822_1280.jpg)" alt="OkHttp3 源码解析内部缓存" class="thumbnail-image"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
+                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:46.000Z" itemprop="datePublished">2018-05-22</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="thumbnail">
     
     
@@ -418,7 +437,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析-连接池的复用/" class="title">OkHttp3源码解析 连接池的复用</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:15.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
                 
@@ -437,26 +456,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
                             <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3-源码解析执行流程/" class="title">OkHttp3 源码解析执行流程</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://pbqg4zkla.bkt.clouddn.com/surfing-926822_1280.jpg)" alt="OkHttp3 源码解析内部缓存" class="thumbnail-image"></span>
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/OkHttp3/">OkHttp3</a></p>
-                            <p class="item-title"><a href="/2018/05/22/OkHttp3/OkHttp3源码解析内部缓存/" class="title">OkHttp3 源码解析内部缓存</a></p>
-                            <p class="item-date"><time datetime="2018-05-22T14:26:06.000Z" itemprop="datePublished">2018-05-22</time></p>
+                            <p class="item-date"><time datetime="2018-05-22T14:26:00.000Z" itemprop="datePublished">2018-05-22</time></p>
                         </div>
                     </li>
                 
@@ -475,7 +475,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/View系列/">View系列</a></p>
                             <p class="item-title"><a href="/2018/05/20/View加载优化之懒汉模式-ViewStub/" class="title">View加载优化之懒汉模式-ViewStub</a></p>
-                            <p class="item-date"><time datetime="2018-05-20T00:54:45.603Z" itemprop="datePublished">2018-05-20</time></p>
+                            <p class="item-date"><time datetime="2018-05-20T00:54:22.000Z" itemprop="datePublished">2018-05-20</time></p>
                         </div>
                     </li>
                 
@@ -494,7 +494,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
                         <div class="item-inner">
                             <p class="item-category"><a class="article-category-link" href="/categories/View系列/">View系列</a></p>
                             <p class="item-title"><a href="/2018/05/20/Android-View的事件分发/" class="title">View的事件分发</a></p>
-                            <p class="item-date"><time datetime="2018-05-20T00:28:16.000Z" itemprop="datePublished">2018-05-20</time></p>
+                            <p class="item-date"><time datetime="2018-05-20T00:28:30.000Z" itemprop="datePublished">2018-05-20</time></p>
                         </div>
                     </li>
                 
@@ -558,7 +558,7 @@ window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMin
 	<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 	<script>
 		var gitment = new Gitment({
-			id: "OkHttp3 源码解析执行流程",
+			id: "Tue May 22 2018 22:26:00 GMT+0800",
 			owner: 'Gillben',
 			repo: 'Gillben.github.io',
 			oauth: {
